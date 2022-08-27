@@ -165,4 +165,29 @@ class UserController extends Controller
             );
         }
     }
+    const USER_ROLE = 1;
+    const ADMIN_ROLE = 2;
+   
+    public function addAdmin($id)
+    {
+        try {
+            $user = User::query()->find($id);
+
+            $user->rols()->attach(self::ADMIN_ROLE);
+
+            return response()->json([
+                'success' => true,
+                'message' => "Rol Admin activated"
+            ]);
+        } catch (\Exception $exception) {
+            Log::error('Error change rol' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error to change rol'
+                ],
+                404
+            );
+        };
+    }
 }

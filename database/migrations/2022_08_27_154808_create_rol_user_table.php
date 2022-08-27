@@ -18,6 +18,9 @@ class CreateRolUserTable extends Migration
             $table->timestamps();
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('rol_id');
+            $table->unique(['user_id', 'rol_id']);
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+            $table->foreign('rol_id')->references('id')->on('rols')->onDelete('cascade');
             
         });
     }
@@ -30,5 +33,7 @@ class CreateRolUserTable extends Migration
     public function down()
     {
         Schema::dropIfExists('rol_user');
+
     }
+
 }
