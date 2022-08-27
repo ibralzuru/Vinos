@@ -4,12 +4,36 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Validator;
 use PhpParser\Node\Stmt\TryCatch;
 
 class ProductController extends Controller
 {
+    public function getAllProducts()
+    {
+        try {
+            Log::info('Getting all products');
+            $products = DB::table('products')->select('name')->get()->toArray();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Products retrieved successfull",
+                'data' => $products,
+            ]);
+        } catch (\Exception $exception) {
+            Log::info('Error getting products' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error getting products"
+
+                ],
+                500
+            );
+        }
+    }
     public function create(Request $request)
     {
         try {
@@ -148,6 +172,29 @@ class ProductController extends Controller
                 [
                     'success' => false,
                     'message' => "Error updating product"
+
+                ],
+                500
+            );
+        }
+    }
+    public function deleteProductById($id)
+    {
+        try {
+            Log::info('Deleting product');
+            $product = Product::query()->find($id);
+            $product->delete();
+
+            return response()->json([
+                'success' => true,
+                'message' => "Product deleted succesfull",
+            ]);
+        } catch (\Exception $exception) {
+            Log::info('Error deleting product' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error deleting product"
 
                 ],
                 500

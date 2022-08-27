@@ -36,13 +36,14 @@ Route::group(
         Route::put('/profile/update', [UserController::class, 'update']);
     }
 );
+//product
 Route::group(
     ['middleware' => 'jwt.auth'],
     function () {
         Route::post('/create', [ProductController::class, 'create']);
         Route::get('/get/{id}', [ProductController::class, 'getProductId']);
         Route::post('/edit/{id}', [ProductController::class, 'editProductById']);
-        /* Route::get('/get/all', [ProductController::class, 'getAll']);
-        Route::delete('/delete', [ProductControlle::class, 'delete']); */
+        Route::get('/get', [ProductController::class, 'getAllProducts']);
+        Route::delete('/delete/{id}', [ProductController::class, 'deleteProductById']);
     }
 );
