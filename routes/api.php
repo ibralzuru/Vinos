@@ -42,14 +42,7 @@ Route::group(
         Route::put('/profile/update', [UserController::class, 'update']);
     }
 );
-//product
-Route::group(
-    ['middleware' => 'jwt.auth'],
-    function () {
-        Route::get('/get/{id}', [ProductController::class, 'getProductId']);
-        Route::get('/get', [ProductController::class, 'getAllProducts']);
-    }
-);
+
 //product Admin Role
 Route::group(
     ['middleware' => ['jwt.auth', 'ImAdmin']],
@@ -59,3 +52,12 @@ Route::group(
         Route::delete('/delete/{id}', [ProductController::class, 'deleteProductById']);
     }
 );
+//product
+Route::group(
+    ['middleware' => 'jwt.auth'],
+    function () {
+        Route::get('/get/{id}', [ProductController::class, 'getProductId']);
+        Route::get('/get', [ProductController::class, 'getAllProducts']);
+    }
+);
+
