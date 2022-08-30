@@ -17,10 +17,8 @@ class CreateProductsTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('description');
-            $table->json('images');
-            $table->string('unidades');
-            $table->string('volumen');
-            $table->string('categoria');
+            $table->string('image_url');
+            $table->string('capacidad');
             $table->string('precio');
             $table->timestamps();
         });
