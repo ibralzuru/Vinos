@@ -52,7 +52,7 @@ Route::group(
         Route::delete('/delete/{id}', [ProductController::class, 'deleteProductById']);
     }
 );
-//product
+//product User Role
 Route::group(
     ['middleware' => 'jwt.auth'],
     function () {

@@ -20,4 +20,7 @@ class Product extends Model
     public function user(){
         return $this->belongsToMany(User::class);
     }
+    public function carrito(){
+        return $this->belongsTo(Carrito::class);
+    }
 }

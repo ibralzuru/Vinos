@@ -45,8 +45,10 @@ class UserController extends Controller
                     'apellido' => $request->get('apellido'),
                     'segundoApellido' => $request->get('segundoApellido'),
                 ]
-
             );
+
+            $user->roles()->attach(1);
+
             return response()->json(
                 [
                     'success' => true,
@@ -167,13 +169,13 @@ class UserController extends Controller
     }
     const USER_ROLE = 1;
     const ADMIN_ROLE = 2;
-   
+
     public function addAdmin($id)
     {
         try {
             $user = User::query()->find($id);
 
-            $user->rols()->attach(self::ADMIN_ROLE);
+            $user->roles()->attach(self::ADMIN_ROLE);
 
             return response()->json([
                 'success' => true,

@@ -18,7 +18,7 @@ class ImAdmin
         $userId = auth()->user()->id;
         $user = User::find($userId);
 
-        $hasRole = $user->rols->contains(2);
+        $hasRole = $user->roles->contains(2);
 
         if (!$hasRole) {
             return response()->json(
