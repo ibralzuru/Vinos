@@ -40,9 +40,7 @@ class ProductController extends Controller
             $newName = $request->input('name');
             $newDescription = $request->input('description');
             $newImages = $request->input('images');
-            $newUnidades = $request->input('unidades');
-            $newVolumen = $request->input('volumen');
-            $newCategoria = $request->input('categoria');
+            $newCapacidad = $request->input('capacidad');
             $newPrecio = $request->input('precio');
 
 
@@ -52,9 +50,8 @@ class ProductController extends Controller
 
                     'name' => 'required|string|max:25',
                     'description' => 'required|string|max:255',
-                    'images' => 'required|array',
-                    'unidades' => 'required|string',
-                    'volumen' => 'required|string',
+                    'images' => 'required|string',
+                    'capacidad' => 'required|string',
                     'categoria' => 'required|string',
                     'precio' => 'required|string',
 
@@ -74,9 +71,7 @@ class ProductController extends Controller
             $newProduct->name = $newName;
             $newProduct->description = $newDescription;
             $newProduct->images = $newImages;
-            $newProduct->unidades = $newUnidades;
-            $newProduct->volumen = $newVolumen;
-            $newProduct->categoria = $newCategoria;
+            $newProduct->capacidad = $newCapacidad;
             $newProduct->precio = $newPrecio;
             $newProduct->save();
 
@@ -142,10 +137,8 @@ class ProductController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'string',
                 'description' => 'string',
-                'images' => 'array',
-                'unidades' => 'string',
-                'volumen' => 'string',
-                'categoria' => 'string',
+                'images' => 'string',
+                'capacidad' => 'string',
                 'precio' => 'string',
             ]);
 
@@ -153,9 +146,7 @@ class ProductController extends Controller
             $product->name = $request->input('name');
             $product->description = $request->input('description');
             $product->images = $request->input('images');
-            $product->unidades = $request->input('unidades');
-            $product->volumen = $request->input('volumen');
-            $product->categoria = $request->input('categoria');
+            $product->unidades = $request->input('capacidad');
             $product->precio = $request->input('precio');
             $product->save();
             return response()->json(

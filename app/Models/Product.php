@@ -13,10 +13,7 @@ class Product extends Model
      *
      * @var array<string, string>
      */
-    protected $casts = [
-        'images' => 'array'
-        
-    ];
+   
     public function user(){
         return $this->belongsToMany(User::class);
     }
