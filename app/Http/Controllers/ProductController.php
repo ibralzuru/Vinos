@@ -197,8 +197,8 @@ class ProductController extends Controller
     {
         try {
             $pedido = Pedido::query()->find($pedidoId);
-            $pedido ->estado= $request->input('estado');
-            $pedido ->save();
+            $pedido->estado = $request->input('estado');
+            $pedido->save();
             return response()->json(
                 [
                     'success' => true,
@@ -207,7 +207,6 @@ class ProductController extends Controller
                 ],
                 200
             );
-
         } catch (\Exception $exception) {
             Log::info('Error updating status' . $exception->getMessage());
             return response()->json(
@@ -218,42 +217,62 @@ class ProductController extends Controller
                 ],
                 500
             );
-           
         }
-      
     }
 
 
- 
 
-    public function pedidosPending(Request $request, $pedidoId)
- {
-     try {
-        
-         $pedidosPending = Pedido::query()->where('estado', 'pending')->get();
-         $pedidosPending ->save();
-         return response()->json(
-             [
-                 'success' => true,
-                 'message' => "pedido pending"
 
-             ],
-             200
-         );
+    public function pedidoStatus($estado)
+    {
+        try {
 
-     } catch (\Exception $exception) {
-         Log::info('Error pedidos pending status' . $exception->getMessage());
-         return response()->json(
-             [
-                 'success' => false,
-                 'message' => "Error pedidos pending status"
+            $pedidosPending = Pedido::query()->where('estado', $estado)->get();
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "pedido " . $estado,
+                    'pedidos' => $pedidosPending
 
-             ],
-             500
-         );
-        
-     }
-   
- }
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+            Log::info('Error pedidos ' . $estado . ' status' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error pedidos ' . $estado . ' status'
 
+                ],
+                500
+            );
+        }
+    }
+    public function pedidoByDate()
+    {
+        try {
+
+            $pedidosByDate = Pedido::query()->orderBy('created_at', 'DESC')->get();
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "pedido ordenados por fecha descendiente",
+                    'pedidos' => $pedidosByDate
+
+                ],
+                200
+            );
+        } catch (\Exception $exception) {
+            Log::info('Error pedidos por fecha ' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => 'Error pedidos por fecha'
+
+                ],
+                500
+            );
+        }
+    }
 }

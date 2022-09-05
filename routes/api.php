@@ -24,7 +24,7 @@ Route::get('/', function () {
 Route::post('/register', [UserController::class, 'register']);
 //Ruta Admin
 Route::group(
-    ['middleware' => 'jwt.auth' ],
+    ['middleware' => 'jwt.auth'],
     function () {
         Route::post('/admin/{id}', [UserController::class, 'addAdmin']);
     }
@@ -50,7 +50,6 @@ Route::group(
         Route::post('/product/create', [ProductController::class, 'create']);
         Route::post('/product/edit/{id}', [ProductController::class, 'editProductById']);
         Route::delete('/product/delete/{id}', [ProductController::class, 'deleteProductById']);
-        
     }
 );
 //product User Role
@@ -59,12 +58,13 @@ Route::group(
     function () {
         Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
         Route::get('/product/get', [ProductController::class, 'getAllProducts']);
-       
     }
 );
 Route::group(
-    ['middleware' => 'jwt.auth'],
+    ['middleware' => ['jwt.auth', 'ImAdmin']],
     function () {
-      Route::put('/pedido/update/{pedidoId}', [ProductController::class, 'updatePedidoStatus']);
+        Route::put('/pedido/update/{pedidoId}', [ProductController::class, 'updatePedidoStatus']);
+        Route::get('/pedido/get/all/{estado}', [ProductController::class, 'pedidoStatus']);
+        Route::get('/pedido/get/order/byDate', [ProductController::class, 'pedidoByDate']);
     }
 );
