@@ -39,7 +39,7 @@ Route::group(
     function () {
         Route::get('/logout', [UserController::class, 'logout']);
         Route::get('/profile', [UserController::class, 'profile']);
-        Route::put('/profile/update', [UserController::class, 'update']);
+        Route::put('/profile/update/{id}', [UserController::class, 'update']);
     }
 );
 
@@ -47,17 +47,24 @@ Route::group(
 Route::group(
     ['middleware' => ['jwt.auth', 'ImAdmin']],
     function () {
-        Route::post('/create', [ProductController::class, 'create']);
-        Route::post('/edit/{id}', [ProductController::class, 'editProductById']);
-        Route::delete('/delete/{id}', [ProductController::class, 'deleteProductById']);
+        Route::post('/product/create', [ProductController::class, 'create']);
+        Route::post('/product/edit/{id}', [ProductController::class, 'editProductById']);
+        Route::delete('/product/delete/{id}', [ProductController::class, 'deleteProductById']);
+        
     }
 );
 //product User Role
 Route::group(
     ['middleware' => 'jwt.auth'],
     function () {
-        Route::get('/get/{id}', [ProductController::class, 'getProductId']);
-        Route::get('/get', [ProductController::class, 'getAllProducts']);
+        Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
+        Route::get('/product/get', [ProductController::class, 'getAllProducts']);
+       
     }
 );
-
+Route::group(
+    ['middleware' => 'jwt.auth'],
+    function () {
+      Route::put('/pedido/update/{pedidoId}', [ProductController::class, 'updatePedidoStatus']);
+    }
+);

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Pedido;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -192,4 +193,67 @@ class ProductController extends Controller
             );
         }
     }
+    public function updatePedidoStatus(Request $request, $pedidoId)
+    {
+        try {
+            $pedido = Pedido::query()->find($pedidoId);
+            $pedido ->estado= $request->input('estado');
+            $pedido ->save();
+            return response()->json(
+                [
+                    'success' => true,
+                    'message' => "pedido updated"
+
+                ],
+                200
+            );
+
+        } catch (\Exception $exception) {
+            Log::info('Error updating status' . $exception->getMessage());
+            return response()->json(
+                [
+                    'success' => false,
+                    'message' => "Error updating status"
+
+                ],
+                500
+            );
+           
+        }
+      
+    }
+
+
+ 
+
+    public function pedidosPending(Request $request, $pedidoId)
+ {
+     try {
+        
+         $pedidosPending = Pedido::query()->where('estado', 'pending')->get();
+         $pedidosPending ->save();
+         return response()->json(
+             [
+                 'success' => true,
+                 'message' => "pedido pending"
+
+             ],
+             200
+         );
+
+     } catch (\Exception $exception) {
+         Log::info('Error pedidos pending status' . $exception->getMessage());
+         return response()->json(
+             [
+                 'success' => false,
+                 'message' => "Error pedidos pending status"
+
+             ],
+             500
+         );
+        
+     }
+   
+ }
+
 }
