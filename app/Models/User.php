@@ -25,7 +25,7 @@ class User extends Authenticatable implements JWTSubject
         'address',
         'phoneNumber',
         'apellido',
-        'segundoApellido',
+        'segundoApellido'
     ];
 
     /**
@@ -48,29 +48,31 @@ class User extends Authenticatable implements JWTSubject
     ];
     public function getJWTIdentifier()
     {
-    return $this->getKey();
+        return $this->getKey();
     }
     /**
-    * Return a key value array, containing any custom claims to be added to the JWT.
-    *
-    * @return array
-    */
+     * Return a key value array, containing any custom claims to be added to the JWT.
+     *
+     * @return array
+     */
     public function getJWTCustomClaims()
     {
-    return [];
+        return [];
     }
-     //añadimos las relaciones 
+    //añadimos las relaciones 
     /**
      * The roles that belong to the user.
      */
-    public function productos(){
+    public function productos()
+    {
         return $this->belongsToMany(Productos::class);
     }
-    public function roles(){
-        return $this->belongsToMany(Role::class,'role_user','user_id','role_id');
+    public function roles()
+    {
+        return $this->belongsToMany(Role::class, 'role_user', 'user_id', 'role_id');
     }
-    public function pedido(){
+    public function pedido()
+    {
         return $this->hasMany(Pedido::class);
     }
-    
 }

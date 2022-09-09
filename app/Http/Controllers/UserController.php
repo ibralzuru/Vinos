@@ -71,21 +71,22 @@ class UserController extends Controller
     public function login(Request $request)
     {
         $input = $request->only('email', 'password');
-        $jwt_token = null;
+        $jwt_token  = JWTAuth::attempt($input);
 
-        if (!$jwt_token = JWTAuth::attempt($input)) {
+        if ($jwt_token === null) {
             return response()->json(
                 [
-                    'succes' => false,
-                    'message' => 'registro erroneo'
+                    'success' => false,
+                    'message' => 'Invalid Registers username or password'
                 ],
                 Response::HTTP_UNAUTHORIZED
             );
         }
         return response()->json(
             [
-                'succes' => true,
+                'success' => true,
                 'token' => $jwt_token,
+                'user' => auth()->user()
             ]
         );
     }
