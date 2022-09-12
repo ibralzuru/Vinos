@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use PhpParser\Node\Stmt\TryCatch;
 use Illuminate\Support\Facades\Validator;
 use Symfony\Component\HttpFoundation\Response;
-use Tymon\JWTAuth\Facades\JWTAuth;
+use PHPOpenSourceSaver\JWTAuth\Facades\JWTAuth;
 
 class UserController extends Controller
 {
