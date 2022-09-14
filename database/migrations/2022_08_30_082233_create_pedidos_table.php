@@ -20,7 +20,10 @@ class CreatePedidosTable extends Migration
             $table->string('pago_id');
             $table->string('direccion');
             $table->string('monto_total');
-            $table->enum('estado',['pendiente','pagado','enviado']); 
+            $table->enum('estado',['pendiente','pagado','enviado']);
+            $table->foreign('usuario_id')->references('id')->on('usuarios')->onDelete('cascade');
+            $table->foreign('pago_id')->references('id')->on('pagos')->onDelete('cascade');
+             
         });
     }
 
