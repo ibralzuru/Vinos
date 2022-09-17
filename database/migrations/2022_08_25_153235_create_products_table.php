@@ -21,6 +21,8 @@ class CreateProductsTable extends Migration
             $table->string('capacidad');
             $table->string('precio');
             $table->timestamps();
+            
+            
         });
     }
 
