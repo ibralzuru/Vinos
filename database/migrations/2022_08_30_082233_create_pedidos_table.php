@@ -16,12 +16,12 @@ class CreatePedidosTable extends Migration
         Schema::create('pedidos', function (Blueprint $table) {
             $table->id();
             $table->unsignedBigInteger('user_id');
-            $table->unsignedBigInteger('pago_id');
+            $table->unsignedBigInteger('pago_id')->unsigned();
             $table->string('direccion');
             $table->json('pedidos');
             $table->string('monto_total');
             $table->timestamps();
-            $table->enum('estado',['pendiente','pagado','enviado']);
+            $table->enum('estado',['pendiente','pagado','enviado'])->default('pendiente');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->foreign('pago_id')->references('id')->on('pagos')->onDelete('cascade'); 
         });

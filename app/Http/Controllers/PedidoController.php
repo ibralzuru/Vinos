@@ -17,7 +17,6 @@ class PedidoController extends Controller
            $newPedido->pedidos = $request->input('pedidos');
            $newPedido->monto_total = $request->input('monto_total');
            $newPedido->estado = $request->input('estado');
-           $newPedido->precio = $request->input('precio');
            $newPedido->user_id= auth()->user()->id;
            $newPedido->pago_id= auth()->user()->id;
            $newPedido->save();
