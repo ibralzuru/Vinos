@@ -55,13 +55,15 @@ Route::group(
     }
 );
 //product User Role
-Route::group(
-    ['middleware' => 'jwt.auth'],
+/* Route::group(
+     ['middleware' => 'jwt.auth'], 
     function () {
         Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
         Route::get('/product/get', [ProductController::class, 'getAllProducts']);
     }
-);
+); */
+Route::get('/product/get', [ProductController::class, 'getAllProducts']);
+
 Route::group(
     ['middleware' => ['jwt.auth', 'ImAdmin']],
     function () {
