@@ -63,6 +63,7 @@ Route::group(
     }
 ); */
 Route::get('/product/get', [ProductController::class, 'getAllProducts']);
+Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
 
 Route::group(
     ['middleware' => ['jwt.auth', 'ImAdmin']],

@@ -16,9 +16,13 @@ class Pedido extends Model
     public function pago(){
         return $this->hasOne(Pago::class);
     }
+  public function carrito(){
+        return $this->hasMany(Carrito::class);
+    }
 
     public function user(){
         return $this->belongsTo(User::class);
     }
+  
   
 }
