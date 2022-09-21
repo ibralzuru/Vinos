@@ -14,12 +14,12 @@ class CreateCarritosTable extends Migration
         Schema::create('carritos', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->string('pedido_id');
-            $table->string('producto_id');
+            $table->unsignedBigInteger('pedido_id');
+            $table->unsignedBigInteger('producto_id');
             $table->string('unidades');
             $table->string('precio');
-           // $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
-            //$table->foreign('producto_id')->references('id')->on('products')->onDelete('cascade');  
+            $table->foreign('pedido_id')->references('id')->on('pedidos')->onDelete('cascade');
+            $table->foreign('producto_id')->references('id')->on('products')->onDelete('cascade');  
         });
     }
     /**
