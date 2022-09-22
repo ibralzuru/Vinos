@@ -18,7 +18,6 @@ class CreatePedidosTable extends Migration
             $table->unsignedBigInteger('user_id');
             $table->unsignedBigInteger('pago_id')->unsigned();
             $table->string('direccion');
-           // $table->json('pedidos');
             $table->string('monto_total');
             $table->timestamps();
             $table->enum('estado',['pendiente','pagado','enviado'])->default('pendiente');
