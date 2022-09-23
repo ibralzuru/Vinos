@@ -16,18 +16,14 @@ class PagosSeeder extends Seeder
     {
         DB::table('pagos')->insert(
             [
-                'name' => 'pendiente'
+                'name' => 'paypal'
             ]
         );
         DB::table('pagos')->insert(
             [
-                'name' => 'pagado'
+                'name' => 'tarjeta'
             ]
         );
-        DB::table('pagos')->insert(
-            [
-                'name' => 'enviado'
-            ]
-        );
+        
     }
 }
