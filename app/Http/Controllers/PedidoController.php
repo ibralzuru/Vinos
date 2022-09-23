@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Carrito;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -22,7 +23,7 @@ class PedidoController extends Controller
                     'monto_total' => 'required|string|max:10',
                     'estado' => 'required|string',
                     'pago_id' => 'required|string',
-
+                    'products' => 'required|json'
                 ]
             );
             if ($validator->fails()) {
@@ -46,6 +47,16 @@ class PedidoController extends Controller
             $newPedido->save();
 
             //crear registros en la tabla carritos de cada uno de los productos que tiene mi pedido
+
+            for($i = 0, $size = count($request->input('products')); $i < $size; ++$i) { 
+
+                $newPedidoCarrito = new Carrito();
+                $newPedidoCarrito->pedido_id = $newPedido->id;
+                $newPedidoCarrito->producto_id = $request->input('products')[$i]->producto_id;
+                $newPedidoCarrito->unidades = $request->input('products')[$i]->unidades;
+                $newPedidoCarrito->precio = $request->input('products')[$i]->precio;
+                $newPedidoCarrito->save();
+             }
 
 
             return response()->json(
