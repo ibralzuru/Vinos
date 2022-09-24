@@ -55,15 +55,14 @@ Route::group(
     }
 );
 //product User Role
-/* Route::group(
-     ['middleware' => 'jwt.auth'], 
+ Route::group(
+     [], 
     function () {
         Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
         Route::get('/product/get', [ProductController::class, 'getAllProducts']);
     }
-); */
-Route::get('/product/get', [ProductController::class, 'getAllProducts']);
-Route::get('/product/get/{id}', [ProductController::class, 'getProductId']);
+); 
+
 
 Route::group(
     ['middleware' => ['jwt.auth', 'ImAdmin']],
@@ -77,6 +76,11 @@ Route::group(
     ['middleware' => 'jwt.auth'],
     function () {
         Route::post('/pedido/create', [PedidoController::class, 'createPedido']);
+        Route::get('/pedido/get/all', [PedidoController::class, 'getAllPedidos']);
+        Route::get('/carrito/get/{pedidoId}', [PedidoController::class, 'getCarritoByPedido']); 
+        
+       
     }
 
 );
+
