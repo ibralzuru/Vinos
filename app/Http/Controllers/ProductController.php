@@ -16,7 +16,7 @@ class ProductController extends Controller
     {
         try {
             Log::info('Getting all products');
-            $products = DB::table('products')->select('name','description','images','precio')->get()->toArray();
+            $products = DB::table('products')->select('id','name','description','images','precio')->get()->toArray();
 
             return response()->json([
                 'success' => true,
